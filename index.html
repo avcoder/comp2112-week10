@@ -485,6 +485,35 @@
         <section class="bg-black">
           <!-- .wrap = container (width: 90%) -->
           <div class="wrap size-50 aligncenter">
+            <h2><strong> db.php </strong></h2>
+            <pre><h5>
+&lt;?php
+$dsn = 'mysql:host=aws.computerstudi.es;dbname=gc800182472';
+$usernm = 'gc123456789';
+$passwd = '########';
+
+
+// connect to db - dbtype, svr adrs, dbname, username, pwd
+try {
+    $conn = new PDO($dsn, $usernm, $passwd);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+}
+
+catch (PDOException $error) {
+    echo "There was a problem connecting to db<br>";
+    echo $error->getMessage();
+}
+
+?>
+    </h5></pre>
+            <!-- .end .bg-white shadow -->
+          </div>
+          <!-- .end .wrap -->
+        </section>
+
+        <section class="bg-black">
+          <!-- .wrap = container (width: 90%) -->
+          <div class="wrap size-50 aligncenter">
             <h2><strong> vote.php </strong></h2>
             <pre><h5>
 &lt;?php
