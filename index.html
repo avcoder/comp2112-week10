@@ -459,6 +459,98 @@
           <!-- .end .wrap -->
         </section>
 
+        <section class="">
+          <!-- .wrap = container (width: 90%) -->
+          <div class="wrap size-50 aligncenter">
+            <h2><strong> mySQL </strong></h2>
+            <pre><h5>
+  USE gc123456789;
+  CREATE TABLE votes2 (i INT(11) AUTO_INCREMENT PRIMARY KEY, vote VARCHAR(1) NOT NULL);
+  
+  select * from votes2;
+  
+  INSERT INTO votes2 (vote) VALUES ('a');
+  INSERT INTO votes2 (vote) VALUES ('b');
+  INSERT INTO votes2 (vote) VALUES ('c');
+  INSERT INTO votes2 (vote) VALUES ('d');
+  INSERT INTO votes2 (vote) VALUES ('a');
+  
+  SELECT vote as voted, COUNT(vote) as tally FROM votes2 GROUP BY vote
+        </h5></pre>
+            <!-- .end .bg-white shadow -->
+          </div>
+          <!-- .end .wrap -->
+        </section>
+
+        <section class="bg-black">
+          <!-- .wrap = container (width: 90%) -->
+          <div class="wrap size-50 aligncenter">
+            <h2><strong> vote.php </strong></h2>
+            <pre><h5>
+&lt;?php
+require_once 'db.php';
+
+// get the value of the vote
+$vote = $_POST['vote'];
+
+echo "vote is $vote";
+
+$sql = 'INSERT INTO votes (vote) VALUES (:vote)';
+$cmd = $conn->prepare($sql);
+$cmd->bindParam(':vote', $vote, PDO::PARAM_STR);
+
+// execute the insert
+$cmd->execute();
+
+// disconnect
+$conn = null;
+?>              
+          </h5></pre>
+            <!-- .end .bg-white shadow -->
+          </div>
+          <!-- .end .wrap -->
+        </section>
+
+        <section class="bg-black">
+          <!-- .wrap = container (width: 90%) -->
+          <div class="wrap size-50 aligncenter">
+            <h2><strong> api.php </strong></h2>
+            <pre><h5>
+&lt;?php
+// header("Access-Control-Allow-Origin: *");
+require_once 'db.php';
+
+$sql = 'SELECT vote as voted, COUNT(vote) as tally FROM votes GROUP BY vote';
+$cmd = $conn->prepare($sql);
+$cmd->execute();
+$votes = $cmd->fetchAll();
+// print_r($votes);
+$conn=null;
+
+// convert to json
+$json_votes = json_encode($votes);
+
+// output json
+echo $json_votes;
+?>              
+            </h5></pre>
+            <!-- .end .bg-white shadow -->
+          </div>
+          <!-- .end .wrap -->
+        </section>
+
+        <section class="bg-secondary">
+          <!-- .wrap = container (width: 90%) -->
+          <div class="wrap size-50 frame">
+            <h2 class="text-serif aligncenter">Break 15 mins</h2>
+            <p class="aligncenter">
+              <a href="http://aws.computerstudi.es/~gc800182472/"
+                >Start timer</a
+              >
+            </p>
+          </div>
+        </section>
+
         <section class="bg-black">
           <!-- .wrap = container (width: 90%) -->
           <div class="wrap size-50 aligncenter">
